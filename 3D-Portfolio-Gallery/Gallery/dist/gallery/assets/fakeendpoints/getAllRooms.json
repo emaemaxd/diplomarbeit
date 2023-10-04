@@ -1,0 +1,16 @@
+[
+  {
+    "id" : 1,
+    "name" : "First Test Room",
+    "position_amount":  12,
+    "room_img_url":  "https://www.smb.museum/uploads/tx_smb/news/news_67970/Neues-Museum_Raum-Prolog_Achim_Kleuker_xl.jpg",
+    "room_url": "1.gltf"
+  },
+  {
+    "id" : 2,
+    "name" : "Second Test Room",
+    "position_amount":  6,
+    "room_img_url":  "https://cdn.getyourguide.com/img/tour/5dc3e1094ca28.jpeg/97.jpg",
+    "room_url": "2.gltf"
+  }
+]

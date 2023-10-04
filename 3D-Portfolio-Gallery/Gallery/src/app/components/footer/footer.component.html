@@ -1,0 +1,65 @@
+<ng-container *ngIf="footer.visible">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <filter id='inset-shadow'>
+  <!-- Shadow offset -->
+  <feOffset
+    dx='0'
+    dy='5'
+  />
+  <!-- Shadow blur -->
+  <feGaussianBlur
+    stdDeviation='2'
+    result='offset-blur'
+  />
+  <!-- Invert drop shadow to make an inset shadow-->
+  <feComposite
+    operator='out'
+    in='SourceGraphic'
+    in2='offset-blur'
+    result='inverse'
+  />
+  <!-- Cut colour inside shadow -->
+  <feFlood
+    flood-color='black'
+    flood-opacity='.25'
+    result='color'
+  />
+  <feComposite
+    operator='in'
+    in='color'
+    in2='inverse'
+    result='shadow'
+  />
+  <!-- Placing shadow over element -->
+  <feComposite
+    operator='over'
+    in='shadow'
+    in2='SourceGraphic'
+  />
+</filter>
+<g filter="url(#inset-shadow)">
+  <path fill="#0099ff" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,234.7C384,245,480,235,576,224C672,213,768,203,864,208C960,213,1056,235,1152,250.7C1248,267,1344,277,1392,282.7L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+</g>
+</svg>
+<footer class="text-lg-start text-muted  bg-secondary-c font-secondary-c pt-3 pb-5" >
+    <div class="container text-md-start">
+      <div class="row mt-3 justify-content-center">
+        <div class="col-md-5 col-sm-12 mx-auto mb-4">
+          <h5 class="mb-4 font-secondary-c underlined">
+            3D Portfolio
+          </h5>
+          <p class="text-sm-start">
+            ... was created, because of a school-project, currently it is under development. Our future plan are that the 3D Portfolio website, will be a space for creators, where there can share are in an extraordinary way and for our visitors to show them the amazing art.
+          </p>
+        </div>
+        <div class="col-md-5 col-sm-12 mx-auto mb-4 align-middle">
+          <h5 class="mb-4 font-secondary-c underlined">Contact</h5>
+          <p><mat-icon>home</mat-icon> HTL Leonding</p>
+          <p><mat-icon>mail</mat-icon> info@example.com</p>
+          <p><mat-icon>local_phone</mat-icon> + 01 234 567 88</p>
+          <p><mat-icon>local_phone</mat-icon> + 01 234 567 89</p>
+        </div>
+      </div>
+    </div>
+</footer>
+</ng-container>

@@ -1,0 +1,40 @@
+<nav class="w-100" *ngIf="this.navbar.visible; else showMinimal">
+    <div class="row nav-container mx-4">
+      <div class="col-3">
+        <img class="logo" routerLink="/home" rel="logo" src="../../../assets/image/3d-logo.png">
+        <a class="navbar-brand no-after title" routerLink="/home"><b class="font-gradient">Portfolio</b></a>
+      </div>
+      <div class="col-6 text-center">
+        <div class="d-flex justify-content-center gap-5">
+          <a class="navbar-brand"
+             routerLink="/home" routerLinkActive="link-activated"><mat-icon>home</mat-icon>Home</a>
+          <a class="navbar-brand"
+             routerLink="/search" routerLinkActive="link-activated"><mat-icon>search</mat-icon>Search</a>
+          <a class="navbar-brand" *ngIf="this.auth.isLoggedIn()"
+             routerLink="/profile" routerLinkActive="link-activated"><mat-icon>person</mat-icon>Profile</a>
+        </div>
+      </div>
+      <div class="col-3">
+        <ng-container *ngIf="!this.auth.isLoggedIn(); else profile">
+          <a class="navbar-brand" style="float: right" routerLink="/log-signin"><button class="profile px-5 action-button" >Sign in / Log in</button></a>
+        </ng-container>
+        <ng-template #profile>
+          <a routerLink="/profile" class="w-100" style="text-decoration: none">
+            <div id="profile-container" class="w-100">
+              <p routerLinkActive="link-activated">{{user?.user_name ?? 'Maxi'}}</p>
+              <img [src]="user?.icon_url ?? 'assets/image/profile-photo.jpg'">
+
+            </div>
+          </a>
+        </ng-template>
+      </div>
+    </div>
+</nav>
+
+<ng-template #showMinimal>
+  <nav class="w-100"  >
+    <a routerLink="/home" [ngClass]="{'font-gradient': !this.navbar.white, 'font-secondary-c-navbar': this.navbar.white}" class="ps-2 fw-bold" style="text-decoration: none; z-index: 1000;">
+      <-- Home
+    </a>
+  </nav>
+</ng-template>

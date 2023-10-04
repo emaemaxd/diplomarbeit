@@ -1,0 +1,16 @@
+@import "./src/styles";
+
+.clickypointy{
+  mat-icon{
+    @extend .hover-saturated;
+    @extend .pointer;
+    font-size: 4rem;
+    width: auto;
+    height: auto;
+  }
+}
+#slideshow-container{
+  display: inline;
+  padding-bottom: 1%;
+}
+

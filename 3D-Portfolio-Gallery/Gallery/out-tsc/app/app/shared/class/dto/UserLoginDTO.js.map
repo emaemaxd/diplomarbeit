@@ -1,0 +1,1 @@
+{"version":3,"file":"UserLoginDTO.js","sourceRoot":"","sources":["../../../../../../src/app/shared/class/dto/UserLoginDTO.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,YAAY;IAIvB,YAAY,eAAuB,EAAE,QAAgB;QACnD,IAAI,CAAC,eAAe,GAAG,eAAe,CAAC;QACvC,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC3B,CAAC;CACF"}

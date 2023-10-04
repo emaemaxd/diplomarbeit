@@ -1,0 +1,27 @@
+
+<ng-container *ngIf="exhibition" >
+  <div class="close-wrapper" style="position:relative;">
+    <button id="close-button" class="shadow" style="background-color: red; color: white; position: absolute; right: 0; z-index: 2" *ngIf="isDeleteMode" (click)="onDelete()">
+      <span>X</span>
+    </button>
+    <mat-card class="exhibition-card" >
+      <img mat-card-image class="card-thumbnail" src="{{thumbnail}}" alt="card-thumbnail">
+      <ng-container *ngIf="exhibition.exhibition.categories">
+        <mat-chip-list style="position:absolute; transform: translateY(-120%); left: 1%"  class="exhibition-card-custom w-100">
+          <mat-chip [style.background-color]="tag.color" *ngFor="let tag of exhibition.exhibition.categories">{{tag.category_title}}</mat-chip>
+        </mat-chip-list>
+      </ng-container>
+      <mat-card-title>
+        {{exhibition.exhibition.title}}
+      </mat-card-title>
+      <mat-card-subtitle style="color: #eee">
+      {{exhibition.user_name}}
+    </mat-card-subtitle>
+
+      <mat-card-content>
+        {{exhibition.exhibition.description}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>
+

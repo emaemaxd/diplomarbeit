@@ -1,0 +1,29 @@
+<div class="container my-5">
+  <div class="d-flex justify-content-center align-items-center">
+    <img id="profile-pic" class="me-5" [src]="user?.icon_url ?? './assets/image/profile-photo.jpg'">
+    <h1>Hi {{user?.user_name ?? 'Maxi'}}</h1>
+  </div>
+  <div class="mt-5">
+    <div class="d-flex justify-content-between">
+      <h3>Your Exhibitions</h3>
+      <div class="align-bottom">
+        <button class="action-button p-3 me-3" routerLink="/create">Add</button>
+        <button class="action-button p-3" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+    <ng-container *ngIf="exhibition_list?.length ?? 0 !== 0; else elseExhibitionList">
+      <div class="d-flex">
+        <div *ngFor="let exhbition of exhibition_list" class="mx-2">
+
+          <app-exhibition-card [delete]="this.isDeleteMode" (delete)="deleteExhibtionEvent($event)" *ngIf="exhbition" [exhibtion]="exhbition" ></app-exhibition-card>
+
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #elseExhibitionList>
+      <div class="d-flex justify-content-center mt-5 pt-5">
+        <h6>nothing stored yet</h6>
+      </div>
+    </ng-template>
+  </div>
+</div>

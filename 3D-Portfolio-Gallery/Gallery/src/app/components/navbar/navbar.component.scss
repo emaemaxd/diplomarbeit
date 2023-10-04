@@ -1,0 +1,54 @@
+@import "src/styles";
+#profile-container{
+  display: flex;
+  justify-content: flex-end;
+  > p{
+    display: inherit;
+    align-self: baseline;
+    margin-bottom: 0;
+  }
+  > img{
+    margin-left: 1rem;
+    border: 0px;
+    border-radius: 100%;
+    height: 2rem;
+  }
+}
+
+
+.logo{
+  width: 10%;
+  height: auto;
+  margin-right: 3%;
+}
+.title{
+  top: 10%;
+  font-size: 24px;
+
+}
+.nav-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+nav{
+  padding-top: 1%;
+}
+.profile {
+  color: $c-secondary-font;
+  border: none;
+  border-radius: $s-round;
+  padding: 5%;
+  box-shadow: $shadow-values;
+}
+content-wrapper{
+  text-align: center;
+}
+
+.font-secondary-c-navbar{
+  color: $c-secondary-font !important;
+  z-index: 999999;
+  position: absolute;
+}

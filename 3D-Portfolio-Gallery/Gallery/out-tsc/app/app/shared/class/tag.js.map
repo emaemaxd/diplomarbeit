@@ -1,0 +1,1 @@
+{"version":3,"file":"tag.js","sourceRoot":"","sources":["../../../../../src/app/shared/class/tag.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,GAAG;IAKd,YAAY,EAAU,EAAE,cAAsB,EAAE,KAAa;QAC3D,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;QACb,IAAI,CAAC,cAAc,GAAG,cAAc,CAAC;QACrC,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACrB,CAAC;CACF"}

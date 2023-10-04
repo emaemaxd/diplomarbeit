@@ -1,0 +1,16 @@
+**/.idea
+**/.vscode
+**/.angular
+
+**/target
+**/bin
+**/out
+
+*.log
+*.lock 
+*.tmp
+
+**/.DS_Store
+
+**/packages
+**/node_modules

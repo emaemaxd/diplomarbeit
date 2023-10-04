@@ -1,0 +1,52 @@
+@import "./src/styles.scss";
+
+mat-horizontal-stepper{
+  background-color: unset !important;
+}
+
+.create-wrapper{
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+
+.w-49{
+  width: 49%;
+}
+button{
+  @extend .action-button;
+  background-image: none;
+  background-color: $bc-secondary;
+  &.backbutton{
+    filter: grayscale(.5);
+  }
+}
+
+@media (min-width: 992px) {
+  .create-wrapper {
+    width: 75%;
+  }
+}
+
+.disabled, .disabled:hover{
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+.container{
+
+}
+
+#fake-background-image{
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  top: 0;
+  position: absolute;
+  overflow: hidden;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-size: 50% auto;
+  //background-size: 100% auto;
+}

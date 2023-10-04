@@ -1,0 +1,348 @@
+/*** Global Style Sheet ***/
+/**  Variables **/
+//Fonts
+@font-face {
+  font-family: Inter;
+  src: url(./assets/fonts/inter/Inter-Regular.ttf);
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(./assets/fonts/inter/Inter-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(./assets/fonts/inter/Inter-ExtraBold.ttf);
+  font-weight: 900;
+}
+
+//Colours
+///Background
+$bc-primary: #eee;
+$bc-secondary: #9096c5;
+$bc-primary-opacity: #eeeeee9f;
+$bc-secondary-opacity: #9096c59f;
+///Font
+$c-font: #222;
+$c-secondary-font: #eee;
+///Colour
+$c-primary: #9197C6;
+$c-error: #d96546;
+$c-action: -webkit-linear-gradient(45deg, #576391, #B470B7);
+
+//Size
+$s-side-margin: 7.5%;
+$s-round: 3px;
+$s-max-round: 12px;
+
+$shadow-values: 0 4px 4px 0 #00000020;
+
+
+/**     HTML - Elements     **/
+html, body { height: 100%; }
+body { margin: 0;}
+
+h1, h2, h3, h4, h5, p, a{
+  font-family: Inter, San Francisco, Akkurat;
+  //color: $c-font;
+}
+
+h1{
+  font-weight: 900;
+  font-size: 84pt;
+}
+
+h2{
+  font-weight: 900;
+  font-size: 64pt;
+}
+
+h3{
+  font-size: 36pt;
+  font-weight: bold;
+}
+
+h4{
+  font-size: 28pt;
+  font-weight: normal;
+}
+
+h5{
+  font-size: 24pt;
+  color: $c-primary;
+  font-weight: normal;
+}
+h6{
+  font-size: 20pt;
+  font-weight: normal;
+}
+
+p, i {
+  font-size: 16pt;
+}
+
+a {
+  cursor: pointer;
+  font-size: 16pt;
+  transition: filter ease-in 250ms;
+  color: $c-font;
+
+  &:visited {
+    filter: invert(.2);
+  }
+  &:hover{
+    @extend .hover-saturated;
+  }
+}
+
+mat-icon{
+  vertical-align: sub;
+}
+
+/** Custom - Class **/
+.wrapper{
+  margin: 0 $s-side-margin;
+}
+
+.shadow{
+  box-shadow: $shadow-values;
+}
+.shadow_stronger{
+  box-shadow: 0 6px 12px 0 #00000030;
+}
+.shadow-inner{
+  box-shadow: inset $shadow-values;
+}
+.drop-shadow{
+  filter: drop-shadow(0px 4px 4px rgb(0 0 0 / 0.2));
+}
+
+.drop-shadow-inner{
+  filter: drop-shadow(inset 0px 4px 4px rgb(0 0 0 / 0.2));
+}
+
+.rounded{
+  border: 0px;
+  border-radius: $s-round;
+}
+.most-rounded{
+  border: 0px;
+  border-radius: $s-max-round;
+}
+.most-rounded-top{
+  border: 0px;
+  border-radius: $s-max-round $s-max-round 0 0;
+}
+
+.bg-primary-c{
+  background-color: $bc-primary !important;
+}
+
+.bg-secondary-c{
+  background-color: $bc-secondary !important;
+}
+
+.bg-gradient-c{
+  background-image: $c-action;
+}
+
+.font-primary-c{
+  color: $c-font !important;
+}
+.font-secondary-c{
+  color: $c-secondary-font !important;
+}
+
+.font-gradient{
+  background-image: $c-action;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  &.underlined:before{
+      content: '';
+      background: $c-action;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 2%;
+  }
+}
+.underlined{
+  text-decoration-line: underline;
+}
+
+.fs-2rem{
+  font-size: 2rem;
+}
+
+.action-button{
+  @extend .hover-saturated;
+  background-image: $c-action;
+  color: $c-secondary-font;
+  border: none;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+}
+
+.btn-disabled{
+  filter: grayscale(.9);
+  box-shadow: 0 0 0;
+}
+
+.custom_input{
+  @extend .rounded;
+  @extend .shadow;
+  border: solid .2rem $bc-secondary;
+}
+
+.error{
+  color: red;
+}
+
+.link-activated{
+  @extend .font-gradient;
+  @extend .underlined;
+  font-width: bold;
+}
+
+.hover-saturated{
+  transition: filter ease-in 250ms;
+
+  &:hover{
+    filter: saturate(1.5);
+  }
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+  @extend .bg-gradient-c;
+}
+
+
+@media (min-width: 576px) {
+  .position-sm-static {
+    position: static !important;
+  }
+  .position-sm-relative {
+    position: relative !important;
+  }
+  .position-sm-absolute {
+    position: absolute !important;
+  }
+  .position-sm-fixed {
+    position: fixed !important;
+  }
+  .position-sm-sticky {
+    position: sticky !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .position-md-static {
+    position: static !important;
+  }
+  .position-md-relative {
+    position: relative !important;
+  }
+  .position-md-absolute {
+    position: absolute !important;
+  }
+  .position-md-fixed {
+    position: fixed !important;
+  }
+  .position-md-sticky {
+    position: sticky !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .position-lg-static {
+    position: static !important;
+  }
+  .position-lg-relative {
+    position: relative !important;
+  }
+  .position-lg-absolute {
+    position: absolute !important;
+  }
+  .position-lg-fixed {
+    position: fixed !important;
+  }
+  .position-lg-sticky {
+    position: sticky !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .position-xl-static {
+    position: static !important;
+  }
+  .position-xl-relative {
+    position: relative !important;
+  }
+  .position-xl-absolute {
+    position: absolute !important;
+  }
+  .position-xl-fixed {
+    position: fixed !important;
+  }
+  .position-xl-sticky {
+    position: sticky !important;
+  }
+}
+
+
+
+/// Custom Hacks Overwriting Bootstrap and Angular Material
+
+.custom_scrollbar::-webkit-scrollbar{
+  height: 5px;
+}
+.custom_scrollbar::-webkit-scrollbar-thumb{
+  background-color: $bc-secondary;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.exhibition-card-custom > .mat-chip-list-wrapper{
+  @extend .custom_scrollbar;
+  &::-webkit-scrollbar-thumb{
+    background-color: $bc-primary;
+  }
+  flex-wrap: nowrap !important;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.input{
+  margin-top: 5%;
+  width: 60%;
+  font-size: 1em;
+  border: 2px solid $c-primary;
+  border-radius: $s-round;
+  box-shadow: $shadow-values;
+}
+.mat-horizontal-stepper-header-container{
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mat-horizontal-stepper-content>*{
+
+}
+.create-exhibition-content-first{
+  height: 93%;
+  overflow-y: auto;
+}
+
+.mat-dialog-container {
+  border-radius: 0px !important;
+}
