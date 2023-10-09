@@ -6,7 +6,7 @@ popd
 
 pushd 3D-Portfolio-Gallery/Gallery
 npm install
-ng build --configuration production  --base-href /e.halilovic/ 
+ng build --configuration production --base-href /e.halilovic/
 popd
 
 pushd k8s

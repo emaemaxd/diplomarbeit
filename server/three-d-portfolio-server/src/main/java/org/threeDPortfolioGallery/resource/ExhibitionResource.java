@@ -7,7 +7,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import org.threeDPortfolioGallery.records.ExhibitionWithUserRecord;
 import org.threeDPortfolioGallery.repos.*;
 import org.threeDPortfolioGallery.workloads.*;
 import org.threeDPortfolioGallery.workloads.dto.AddExhibitDTO;
@@ -19,6 +18,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.threeDPortfolioGallery.workloads.dto.ExhibitionWithUserDTO;
 
 import java.io.*;
 import java.util.*;
@@ -42,8 +42,8 @@ public class ExhibitionResource {
     /**
      * Diese Variable definiert den Pfad, in dem alle Files gespeichert werden. Der Wert wird nie geändert.
      */
-    public static final String FILE_PATH = "src/main/resources/files/";
-
+    // public static final String FILE_PATH = "src/main/resources/files/"; // LOCALLY
+    public static final String FILE_PATH = "resources/files/";  // PROD
     @Inject
     ExhibitionRepo exhibitionRepo;
     @Inject
@@ -206,7 +206,7 @@ public class ExhibitionResource {
     @GET
     @Path("/all")
     public Response getAllExhibitions(){
-        List<ExhibitionWithUserRecord> exhibitionSet = exhibitionRepo.listAllExhibitionsWithUserField();
+        List<ExhibitionWithUserDTO> exhibitionSet = exhibitionRepo.listAllExhibitionsWithUserField();
         if(exhibitionSet.isEmpty()){
             return Response.noContent().build();
         } else {
@@ -223,7 +223,7 @@ public class ExhibitionResource {
     @GET
     @Path("/search/{searchTerm}")
     public Response getExhibitionsBySearchTerm(@PathParam("searchTerm") String searchTerm){
-        List<ExhibitionWithUserRecord> exhibitions = exhibitionRepo.listAllBySearchTerm(searchTerm);
+        List<ExhibitionWithUserDTO> exhibitions = exhibitionRepo.listAllBySearchTerm(searchTerm);
         if(exhibitions == null){
             return Response.noContent().build();
         } else {
@@ -241,7 +241,7 @@ public class ExhibitionResource {
     @PermitAll
     @Path("/latestFive")
     public Response getLastFiveExhibitions(){
-        List<ExhibitionWithUserRecord> exhibitions = exhibitionRepo.getLatestFive();
+        List<ExhibitionWithUserDTO> exhibitions = exhibitionRepo.getLatestFive();
         if(exhibitions == null){
             return Response.noContent().build();
         } else {
@@ -259,7 +259,7 @@ public class ExhibitionResource {
     @GET
     @Path("/getByCategoryId/{categoryId}")
     public Response getExhibitionByCategory(@PathParam("categoryId") Long id){
-        List<ExhibitionWithUserRecord> exhibitions = exhibitionRepo.getByCategoryId(id);
+        List<ExhibitionWithUserDTO> exhibitions = exhibitionRepo.getByCategoryId(id);
         if(exhibitions == null){
             return Response.noContent().build();
         } else {
@@ -276,7 +276,7 @@ public class ExhibitionResource {
         for (String id : ids) {
             longIds.add(Long.parseLong(id));
         }
-        List<ExhibitionWithUserRecord> exhibitions = exhibitionRepo.getByCategoryIds(longIds);
+        List<ExhibitionWithUserDTO> exhibitions = exhibitionRepo.getByCategoryIds(longIds);
         if(exhibitions == null){
             return Response.noContent().build();
         } else {

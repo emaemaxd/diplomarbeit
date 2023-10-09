@@ -63,7 +63,7 @@ data:
         error_log /dev/stdout debug;
 
 
-            root /usr/share/nginx/html/dist/gallery;
+            root /usr/share/nginx/html/demo/gallery ;
             index index.html;
             try_files $uri $uri/ /index.html =404;
         

@@ -22,7 +22,7 @@ export class ExhibitionCardComponent implements OnInit {
     console.log(this.exhibition?.exhibition)
 
     this.thumbnail = this.exhibition?.exhibition.thumbnail_url
-    this.thumbnail = "http://localhost:8080/api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
+    this.thumbnail = "https://student.cloud.htl-leonding.ac.at/e.halilovic/api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
   }
 
   onDelete() {

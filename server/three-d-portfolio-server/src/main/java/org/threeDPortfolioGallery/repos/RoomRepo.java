@@ -6,6 +6,7 @@ import org.threeDPortfolioGallery.workloads.dto.ReturnRoomDTO;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class RoomRepo implements PanacheRepository<Room> {
@@ -17,7 +18,7 @@ public class RoomRepo implements PanacheRepository<Room> {
 
         return q.stream().map(room -> {
             return new ReturnRoomDTO(room.id, room.name, room.room_wall_url, room.wall_mat_url, room.room_floor_url, room.floor_mat_url, room.positions);
-        }).toList();
+        }).collect(Collectors.toList());
     }
 
 }

@@ -4,7 +4,7 @@ let AuthService = class AuthService {
     constructor(http, router) {
         this.http = http;
         this.router = router;
-        this.SERVER_URL = 'http://localhost:8080/api/';
+        this.SERVER_URL = 'https://student.cloud.htl-leonding.ac.at/e.halilovic/api/';
     }
     getUser(userId) {
         return this.http.get(this.SERVER_URL + "users/" + userId);
