@@ -1,12 +1,18 @@
-
+#!/bin/bash
+GITHUB_USER=${GITHUB_USER:-emaemaxd}
+IMAGE_NAME=ghcr.io/$GITHUB_USER/3dserver:latest
+set -e
 
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-docker image tag emaemaxd/3dserver:1.0.0-SNAPSHOT ghcr.io/emaemaxd/3dserver:latest
-docker push ghcr.io/emaemaxd/3dserver:latest
-kubectl delete -f appsrv.yaml
-kubectl delete -f busybox-job.yaml
+echo "tag image to $IMAGE_NAME..."
+docker image tag $GITHUB_USER/3dserver:1.0.0-SNAPSHOT $IMAGE_NAME
+docker push $IMAGE_NAME
+
+kubectl delete -f appsrv.yaml || echo "appsrv not deployed yet"
+kubectl delete -f busybox-job.yaml || echo "busybox not deployed yet"
+
 kubectl apply -f namespace.yaml
 kubectl apply -f ingress.yaml
 kubectl apply -f postgres.yaml

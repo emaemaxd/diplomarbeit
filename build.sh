@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
+set -e
+
+BASE_HREF=${BASE_HREF:-"/e.halilovic/"}
+GITHUB_USER=${GITHUB_USER:-emaemaxd}
+
+echo "BASE_HREF=$BASE_HREF"
 
 pushd server/three-d-portfolio-server
-mvn -Dmaven.test.skip=true -Dquarkus.profile=dev clean package install
+mvn -Dmaven.test.skip=true -Dquarkus.profile=dev -Dquarkus.container-image.group=$GITHUB_USER clean package install
 popd
 
 pushd 3D-Portfolio-Gallery/Gallery
 npm install
-ng build --configuration production --base-href /e.halilovic/
+npm run build -- --configuration production --base-href $BASE_HREF
 popd
 
 pushd k8s
