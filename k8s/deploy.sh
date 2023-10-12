@@ -14,11 +14,11 @@ kubectl delete -f appsrv.yaml || echo "appsrv not deployed yet"
 kubectl delete -f busybox-job.yaml || echo "busybox not deployed yet"
 
 kubectl apply -f namespace.yaml
-kubectl apply -f ingress.yaml
 kubectl apply -f postgres.yaml
 kubectl apply -f appsrv.yaml
 kubectl apply -f nginx.yaml
 kubectl apply -f busybox-job.yaml
+kubectl apply -f ingress.yaml || echo "no ingress"
 
 
 echo "----------"
