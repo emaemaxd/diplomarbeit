@@ -7,7 +7,7 @@ GITHUB_USER=${GITHUB_USER:-emaemaxd}
 echo "BASE_HREF=$BASE_HREF"
 
 pushd server/three-d-portfolio-server
-mvn -Dmaven.test.skip=true -Dquarkus.profile=dev -Dquarkus.container-image.group=$GITHUB_USER clean package install
+mvn -Dmaven.test.skip=true -Dquarkus.container-image.group=$GITHUB_USER clean package install
 popd
 
 pushd 3D-Portfolio-Gallery/Gallery

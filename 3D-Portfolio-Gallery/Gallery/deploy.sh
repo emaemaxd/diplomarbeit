@@ -11,6 +11,7 @@ waitForPod() {
     local pod=""
     while [ "$KNIFE_POD." == "." ]; do
         findPod $1
+        echo "wait for knife"
         sleep 1
     done;
     echo "pod $KNIFE_POD ready"
@@ -21,3 +22,4 @@ echo "copy to student-e-halilovic..."
 kubectl -n student-e-halilovic exec $KNIFE_POD -- rm -rf /srv/demo /srv/dist
 kubectl -n student-e-halilovic cp ./dist $KNIFE_POD:/srv/
 kubectl -n student-e-halilovic exec $KNIFE_POD -- mv /srv/dist /srv/demo
+echo "copy done"

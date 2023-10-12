@@ -1,0 +1,8 @@
+
+GET http://localhost:8080/api/exhibitions/all
+
+
+###
+GET http://localhost:4200/api/exhibitions/all
+Accept: application/json
+
