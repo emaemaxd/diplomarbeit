@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "attach 3D-Portfolio",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": "5005",
+            "projectName": "3D-Portfolio-Gallery",
+        }
+    ]
+}
