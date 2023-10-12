@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 pushd server/three-d-portfolio-server
-mvn -Dmaven.test.skip=true clean package install
+mvn -Dmaven.test.skip=true -Dquarkus.profile=dev clean package install
 popd
 
 pushd 3D-Portfolio-Gallery/Gallery

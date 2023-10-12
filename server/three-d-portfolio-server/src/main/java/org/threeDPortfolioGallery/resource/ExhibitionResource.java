@@ -43,7 +43,7 @@ public class ExhibitionResource {
      * Diese Variable definiert den Pfad, in dem alle Files gespeichert werden. Der Wert wird nie geändert.
      */
     // public static final String FILE_PATH = "src/main/resources/files/"; // LOCALLY
-    public static final String FILE_PATH = "resources/files/";  // PROD
+    public static final String FILE_PATH = "./files/";  // PROD
     @Inject
     ExhibitionRepo exhibitionRepo;
     @Inject
@@ -96,6 +96,7 @@ public class ExhibitionResource {
     @Produces({"image/png"})
     public Response downloadImageFile(@PathParam("fileName") String fileName) {
         File file = new File(FILE_PATH + fileName);
+        System.out.println(FILE_PATH + fileName);
         if (!file.exists()) {
             return Response.noContent().entity("file not found").build();
         }
@@ -103,7 +104,7 @@ public class ExhibitionResource {
     }
 
     /**
-     *
+     * Zum Hochladen der Exhibition-Dateien
      * @param input Blob aus dem Frontend, beliebige Datei
      * @return
      */
