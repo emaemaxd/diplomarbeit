@@ -12,7 +12,8 @@ import {Exhibition} from "../../shared/class/exhibition";
 })
 export class AuthService {
 
-  private SERVER_URL = 'https://student.cloud.htl-leonding.ac.at/e.halilovic/api/'
+  //private SERVER_URL = 'https://student.cloud.htl-leonding.ac.at/e.halilovic/api/'
+  private SERVER_URL = './api/'
 
   constructor(private http: HttpClient, private router: Router) {
   }
