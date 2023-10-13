@@ -20,7 +20,7 @@ in appsrv.yaml replace in the image: line emaemaxd with your github name
 
 ```bash
 export GITHUB_USER=emaemaxd
-export BASE_HREF=/e.halilovic/
+export BASE_HREF=/
 ./build.sh
 ```
 
@@ -50,3 +50,27 @@ Server ist in einem externen Repo aufzufinden (emaemaxd/3dserver)
 cd 3D-Portfolio-Gallery/Gallery
 npm start   
 ```
+You should be able to work with application. Stop it again
+
+### 8. Test the Application on minikube
+
+Now port-forward the nginx pod to your localhost
+```bash
+kubectl port-forward nginx<tab><tab> 4200:80
+```
+
+Open your browser at http://localhost:4200
+
+Then you should see a working app.
+
+## 9. Deploy it to cloud
+
+switch your context to LeoCloud:
+
+```bash
+export BASE_HREF=/e.halilovic/
+./build.sh
+```
+
+### how to get the initial data into the production database:
+You can port - forward port 5432 of the postgres POD to localhost and either run import.sql in a database client of start the backend once on the local host (drop-and-create is not done for the production system, this could delete production data).

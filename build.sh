@@ -22,3 +22,6 @@ popd
 pushd 3D-Portfolio-Gallery/Gallery
 ./deploy.sh
 popd
+pushd k8s
+kubectl delete -f busybox-job.yaml
+popd
