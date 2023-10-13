@@ -22,10 +22,8 @@ export class GalleryService {
     this.supportedFiletypes.set('video', ['mov', 'mp4']);
     this.supportedFiletypes.set('3d', ['gltf', 'obj', 'fbx', 'amf']);
   }
-  
-  //URL = "https://student.cloud.htl-leonding.ac.at/e.halilovic/api/"
+
   URL = "./api/"
-  /*URL = "http://localhost:8080/api/" */
 
   getFileTypeCategoryByFileType(fileType: string): string | undefined{
     return [...this.supportedFiletypes.keys()]

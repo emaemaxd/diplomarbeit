@@ -629,11 +629,11 @@ clickExhibit(){
     }
     if(this.fileType == 'image'){
       this.thumbnail = objectUrl
-      this.thumbnail = "https://student.cloud.htl-leonding.ac.at/e.halilovic/api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
+      this.thumbnail = "./api/exhibitions/downloadImageFile/" + this.thumbnail?.replace("/", "%2F")
     }
     if (this.fileType == 'video'){
       this.videoSrc = objectUrl
-      this.videoSrc = "https://student.cloud.htl-leonding.ac.at/e.halilovic/api/exhibitions/download/" + this.videoSrc?.replace("/", "%2F")
+      this.videoSrc = "./api/exhibitions/download/" + this.videoSrc?.replace("/", "%2F")
     }
 
   }
