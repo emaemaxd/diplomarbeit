@@ -75,12 +75,10 @@
           
           "configurations": {
             "production": {
-              "browserTarget": "Gallery:build:production",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "Gallery:build:production"
             },
             "development": {
-              "browserTarget": "Gallery:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "Gallery:build:development"
             }
           },
           "defaultConfiguration": "development"
