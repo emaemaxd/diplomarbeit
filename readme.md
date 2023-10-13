@@ -21,6 +21,7 @@ in appsrv.yaml replace in the image: line emaemaxd with your github name
 ```bash
 export GITHUB_USER=emaemaxd
 export BASE_HREF=/
+./k8s/clean-all-docker.sh
 ./build.sh
 ```
 
