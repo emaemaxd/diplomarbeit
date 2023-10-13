@@ -2,15 +2,16 @@
 
 #npm install
 #npm run build
-
+NAMESPACE=student-e-halilovic
 KNIFE_POD=""
 findPod() {
-    KNIFE_POD=$(kubectl -n student-e-halilovic get pods|grep -i Running|grep knife|cut -d\  -f 1)
+    KNIFE_POD=$(kubectl -n $NAMESPACE get pods|grep -i Running|grep knife|cut -d\  -f 1)
 }
 waitForPod() {
     local pod=""
     while [ "$KNIFE_POD." == "." ]; do
         findPod $1
+        kubectl -n $NAMESPACE get pods | grep knife
         echo "wait for knife"
         sleep 1
     done;
