@@ -1,10 +1,10 @@
-**/.idea
-**/.angular
+**/.idea/
+**/.angular/
 **/.vscode/
 
-**/target
-**/bin
-**/out
+**/target/
+**/bin/
+**/out/
 
 *.log
 *.lock 
@@ -12,5 +12,5 @@
 
 **/.DS_Store
 
-**/packages
-**/node_modules
+**/packages/
+**/node_modules/
