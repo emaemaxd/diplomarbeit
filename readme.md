@@ -18,6 +18,8 @@ in appsrv.yaml replace in the image: line emaemaxd with your github name
 
 ### 4. Set your user Parameters and start the build
 
+Note: if you compile for minikube use / as BASE_HREF, otherwise e.g. for LeoCloud use the subfolder of your web-app, e.g BASE_HEF=/e.halilovic/
+
 ```bash
 export GITHUB_USER=emaemaxd
 export BASE_HREF=/
