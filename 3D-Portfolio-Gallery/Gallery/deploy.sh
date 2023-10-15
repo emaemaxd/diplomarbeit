@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#npm install
-#npm run build
+set -e
+
 NAMESPACE=student-e-halilovic
 KNIFE_POD=""
 findPod() {
@@ -19,8 +19,9 @@ waitForPod() {
 }
 waitForPod knife
 
-echo "copy to student-e-halilovic..."
-kubectl -n student-e-halilovic exec $KNIFE_POD -- rm -rf /srv/demo /srv/dist
-kubectl -n student-e-halilovic cp ./dist $KNIFE_POD:/srv/
-kubectl -n student-e-halilovic exec $KNIFE_POD -- mv /srv/dist /srv/demo
+echo "copy to $NAMESPACE ..."
+kubectl -n $NAMESPACE  exec $KNIFE_POD -- rm -rf /srv/demo /srv/dist
+pushd ./dist
+    kubectl -n $NAMESPACE  cp * $KNIFE_POD:/srv/
+popd
 echo "copy done"
