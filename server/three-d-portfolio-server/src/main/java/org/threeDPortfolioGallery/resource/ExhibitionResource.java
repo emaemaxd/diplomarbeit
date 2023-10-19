@@ -1,10 +1,13 @@
 package org.threeDPortfolioGallery.resource;
 
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.MultivaluedMap;
 import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.threeDPortfolioGallery.repos.*;
@@ -12,6 +15,7 @@ import org.threeDPortfolioGallery.workloads.*;
 import org.threeDPortfolioGallery.workloads.dto.AddExhibitDTO;
 import org.threeDPortfolioGallery.workloads.dto.AddExhibitionDTO;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.security.PermitAll;
 import jakarta.ws.rs.Produces;
 import jakarta.inject.Inject;
@@ -31,6 +35,7 @@ import java.util.*;
  */
 @Path("api/exhibitions")
 @Produces(MediaType.APPLICATION_JSON)
+@ApplicationScoped
 public class ExhibitionResource {
 // TODO remove Cache-Dependency in pom.xml
     // TODO JAVADOC
@@ -42,8 +47,9 @@ public class ExhibitionResource {
     /**
      * Diese Variable definiert den Pfad, in dem alle Files gespeichert werden. Der Wert wird nie geändert.
      */
-    // public static final String FILE_PATH = "src/main/resources/files/"; // LOCALLY
-    public static final String FILE_PATH = "./files/";  // PROD
+    @ConfigProperty(name="three-d.file.upload.path")
+    String FILE_PATH;
+    
     @Inject
     ExhibitionRepo exhibitionRepo;
     @Inject
@@ -62,6 +68,13 @@ public class ExhibitionResource {
     @Inject
     ExhibitRepo exhibitRepo;
 
+    @Inject
+    Logger log;
+
+    @PostConstruct
+    void init() {
+        log.infof("File upload base is %s", FILE_PATH);
+    }
     /**
      * HTTP-Methode GET zum Download von Dateien.
      * Mitgegeben wird der Name + zugehöriger Ordner des benötigten Files.
@@ -129,7 +142,7 @@ public class ExhibitionResource {
                     // exhibitRepo.persist(ex);
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     var fileName2 = FILE_PATH + "upload/" + fileName;
-
+                    log.infof("save uploaded file as %s", fileName2);
                     writeFile(bytes, fileName2);
                     fileCount++;
                 } catch (IOException e) {
