@@ -13,6 +13,7 @@ docker push $IMAGE_NAME
 kubectl delete -f appsrv.yaml || echo "appsrv not deployed yet"
 kubectl delete -f busybox-job.yaml || echo "busybox not deployed yet"
 
+kubectl apply -f persistent-volume.yaml || echo "volume cannot be created - maybe it already exists"
 kubectl apply -f namespace.yaml
 kubectl apply -f postgres.yaml
 kubectl apply -f appsrv.yaml

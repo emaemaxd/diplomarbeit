@@ -25,8 +25,13 @@ spec:
         - name: html
           mountPath: /srv
           readOnly: false
+        - name: upload
+          mountPath: /mnt
       volumes:
         - name: html
           persistentVolumeClaim:
             claimName: nginx-www
+        - name: upload
+          persistentVolumeClaim:
+            claimName: appsrv-upload            
       restartPolicy: Never

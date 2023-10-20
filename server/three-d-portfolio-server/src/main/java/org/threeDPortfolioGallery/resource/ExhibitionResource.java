@@ -2,6 +2,7 @@ package org.threeDPortfolioGallery.resource;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.MultivaluedMap;
 import org.apache.commons.io.IOUtils;
@@ -24,7 +25,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.threeDPortfolioGallery.workloads.dto.ExhibitionWithUserDTO;
 
+import io.quarkus.runtime.StartupEvent;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -71,9 +76,14 @@ public class ExhibitionResource {
     @Inject
     Logger log;
 
-    @PostConstruct
-    void init() {
-        log.infof("File upload base is %s", FILE_PATH);
+    void init(@Observes StartupEvent ev) {
+        var path = Paths.get(FILE_PATH).toAbsolutePath();
+        log.infof("create upload file folder %s", path.toString());
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            log.error("failed to create upload file folder", e);
+        }
     }
     /**
      * HTTP-Methode GET zum Download von Dateien.
@@ -84,19 +94,22 @@ public class ExhibitionResource {
      * @return Response code 200 mit dem FileStream <i>oder</i> HTTP-Statuscode No Content
      */
     @GET
-    @Path("/download/{fileName}")
-    public Response downloadFile(@PathParam("fileName") String fileName) throws IOException {
-        File file = new File(FILE_PATH  + fileName); // + "exhibits/"
-        Tika tika = new Tika();
-        if (!file.exists()) {
-            return Response.noContent().entity("file not found").build();
+    @Path("/download/{folder}/{fileName}")
+    public Response downloadFile(@PathParam("folder") String folder, @PathParam("fileName") String fileName)
+    throws IOException {
+        var file = Paths.get(FILE_PATH, folder, fileName);
+        var response = Response.noContent().entity("file not found");
+        var tika = new Tika();
+        if (Files.exists(file)) {
+            try (var fileStream = Files.newInputStream(file)) {
+                var mimeType = tika.detect(file.toFile());
+                response = Response
+                    .ok(file.toFile())
+                    .header("Content-Type", mimeType)
+                    .header("Content-Disposition", "attachment; filename=" + fileName);
+            }
         }
-        InputStream fileStream = new FileInputStream(FILE_PATH  + fileName);
-        String mimeType = tika.detect(fileName);
-        return Response.ok(fileStream, mimeType)
-                .header("Content-Disposition", "attachment; filename=" + fileName)
-                .build();
-        // => src/main/resources/files/
+        return response.build();
     }
 
     /**

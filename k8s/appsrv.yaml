@@ -40,18 +40,3 @@ spec:
       protocol: TCP
   selector:
     app: appsrv
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata: 
-  name: appsrv-upload
-  namespace: student-e-halilovic
-  annotations:
-    nfs.io/storage-path: "appsrv-upload"
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: standard
-  resources:
-    requests:
-      storage: 500Mi

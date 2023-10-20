@@ -95,6 +95,15 @@
     </dependency>
   </dependencies>
   <build>
+    <pluginManagement>
+      <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>    
+          </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
@@ -150,6 +159,30 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>copy-three-d-files</id>
+              <phase>validate</phase>
+              <goals>
+                  <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                  <outputDirectory>${basedir}/target/files</outputDirectory>
+                  <resources>
+                      <resource>
+                          <directory>src/main/resources/files</directory>
+                          <includes>
+                            <include>**/*</include>
+                          </includes>
+                      </resource>
+                  </resources>
+              </configuration>
+            </execution>
+          </executions>        
       </plugin>
     </plugins>
   </build>

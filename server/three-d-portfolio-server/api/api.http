@@ -1,0 +1,13 @@
+@QUARKUS=http://localhost:8080
+
+GET {{QUARKUS}}/api/exhibitions/all
+Accept: application/json
+
+
+###
+GET http://localhost:4200/api/exhibitions/all
+Accept: application/json
+###
+
+# Download an image
+GET {{QUARKUS}}/api/exhibitions/download/example-exhibits/abstract1.jpg
