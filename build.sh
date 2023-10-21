@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
+#remove this when done with testing!
+
 BASE_HREF=${BASE_HREF:-"/e.halilovic/"}
 GITHUB_USER=${GITHUB_USER:-emaemaxd}
+
+# docker package names cannot contain uppercase letters:
+LC_GH_USER_NAME="$(echo "$GITHUB_USER" | tr '[:upper:]' '[:lower:]')"
+BACKEND_IMAGE_NAME=ghcr.io/$LC_GH_USER_NAME/3dserver:latest
 echo "BASE_HREF=$BASE_HREF"
+
+export GITHUB_USER
+export BACKEND_IMAGE_NAME
 
 NAMESPACE=student-e-halilovic
 KNIFE_POD=""
@@ -23,7 +32,12 @@ waitForPod() {
 
 
 pushd server/three-d-portfolio-server
-mvn -Dmaven.test.skip=true -Dquarkus.container-image.group=$GITHUB_USER clean package install
+mvn -Dmaven.test.skip=true clean package
+mkdir -p target/deploy
+cp target/*-runner.jar target/deploy/
+docker build --tag 3dserver --file ./src/main/docker/Dockerfile ./target/deploy
+docker image tag 3dserver $BACKEND_IMAGE_NAME
+docker push $BACKEND_IMAGE_NAME
 popd
 
 pushd 3D-Portfolio-Gallery/Gallery

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: appsrv
-          image: ghcr.io/emaemaxd/3dserver:latest
+          image: $BACKEND_IMAGE_NAME
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

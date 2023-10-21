@@ -16,7 +16,6 @@ import org.threeDPortfolioGallery.workloads.*;
 import org.threeDPortfolioGallery.workloads.dto.AddExhibitDTO;
 import org.threeDPortfolioGallery.workloads.dto.AddExhibitionDTO;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.security.PermitAll;
 import jakarta.ws.rs.Produces;
 import jakarta.inject.Inject;
@@ -94,13 +93,14 @@ public class ExhibitionResource {
      * @return Response code 200 mit dem FileStream <i>oder</i> HTTP-Statuscode No Content
      */
     @GET
-    @Path("/download/{folder}/{fileName}")
-    public Response downloadFile(@PathParam("folder") String folder, @PathParam("fileName") String fileName)
+    @Path("/download/{fileName}")
+    public Response downloadFile(@PathParam("fileName") String fileName)
     throws IOException {
-        var file = Paths.get(FILE_PATH, folder, fileName);
-        var response = Response.noContent().entity("file not found");
-        var tika = new Tika();
+        var file = java.nio.file.Path.of(FILE_PATH, fileName);
+        log.infof("try to download %s (FILE_PATH=%s)", file.toFile().getAbsolutePath(), FILE_PATH);
+        var response = Response.noContent().entity(String.format("file '%s' not found", file.toAbsolutePath().getFileName()));
         if (Files.exists(file)) {
+            var tika = new Tika();
             try (var fileStream = Files.newInputStream(file)) {
                 var mimeType = tika.detect(file.toFile());
                 response = Response

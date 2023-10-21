@@ -1,8 +1,11 @@
 @QUARKUS=http://localhost:8080
+@PROXY=http://localhost:4200
+
+###
+# @name GET_ALL_EX_QUARKUS
 
 GET {{QUARKUS}}/api/exhibitions/all
 Accept: application/json
-
 
 ###
 GET http://localhost:4200/api/exhibitions/all
@@ -10,4 +13,7 @@ Accept: application/json
 ###
 
 # Download an image
-GET {{QUARKUS}}/api/exhibitions/download/example-exhibits/abstract1.jpg
+GET {{QUARKUS}}/api/exhibitions/download/example-exhibits%2Fabstract1.jpg
+###
+# Download an image
+GET {{PROXY}}/api/exhibitions/download/example-exhibits%2Fabstract1.jpg
