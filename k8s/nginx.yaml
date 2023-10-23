@@ -72,19 +72,3 @@ data:
             proxy_set_header Host $host:$server_port;
         }
     }
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata: 
-  name: nginx-www
-  namespace: student-e-halilovic
-  annotations:
-    nfs.io/storage-path: "nginx-www"
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: standard
-  resources:
-    requests:
-      storage: 500Mi
----

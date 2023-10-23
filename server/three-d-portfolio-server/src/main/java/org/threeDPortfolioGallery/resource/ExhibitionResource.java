@@ -1,10 +1,14 @@
 package org.threeDPortfolioGallery.resource;
 
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.MultivaluedMap;
 import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.threeDPortfolioGallery.repos.*;
@@ -20,7 +24,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.threeDPortfolioGallery.workloads.dto.ExhibitionWithUserDTO;
 
+import io.quarkus.runtime.StartupEvent;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -31,6 +39,7 @@ import java.util.*;
  */
 @Path("api/exhibitions")
 @Produces(MediaType.APPLICATION_JSON)
+@ApplicationScoped
 public class ExhibitionResource {
 // TODO remove Cache-Dependency in pom.xml
     // TODO JAVADOC
@@ -42,8 +51,9 @@ public class ExhibitionResource {
     /**
      * Diese Variable definiert den Pfad, in dem alle Files gespeichert werden. Der Wert wird nie geändert.
      */
-    // public static final String FILE_PATH = "src/main/resources/files/"; // LOCALLY
-    public static final String FILE_PATH = "./files/";  // PROD
+    @ConfigProperty(name="three-d.file.upload.path")
+    String FILE_PATH;
+    
     @Inject
     ExhibitionRepo exhibitionRepo;
     @Inject
@@ -62,6 +72,18 @@ public class ExhibitionResource {
     @Inject
     ExhibitRepo exhibitRepo;
 
+    @Inject
+    Logger log;
+
+    void init(@Observes StartupEvent ev) {
+        var path = Paths.get(FILE_PATH).toAbsolutePath();
+        log.infof("create upload file folder %s", path.toString());
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            log.error("failed to create upload file folder", e);
+        }
+    }
     /**
      * HTTP-Methode GET zum Download von Dateien.
      * Mitgegeben wird der Name + zugehöriger Ordner des benötigten Files.
@@ -72,18 +94,22 @@ public class ExhibitionResource {
      */
     @GET
     @Path("/download/{fileName}")
-    public Response downloadFile(@PathParam("fileName") String fileName) throws IOException {
-        File file = new File(FILE_PATH  + fileName); // + "exhibits/"
-        Tika tika = new Tika();
-        if (!file.exists()) {
-            return Response.noContent().entity("file not found").build();
+    public Response downloadFile(@PathParam("fileName") String fileName)
+    throws IOException {
+        var file = java.nio.file.Path.of(FILE_PATH, fileName);
+        log.infof("try to download %s (FILE_PATH=%s)", file.toFile().getAbsolutePath(), FILE_PATH);
+        var response = Response.noContent().entity(String.format("file '%s' not found", file.toAbsolutePath().getFileName()));
+        if (Files.exists(file)) {
+            var tika = new Tika();
+            try (var fileStream = Files.newInputStream(file)) {
+                var mimeType = tika.detect(file.toFile());
+                response = Response
+                    .ok(file.toFile())
+                    .header("Content-Type", mimeType)
+                    .header("Content-Disposition", "attachment; filename=" + fileName);
+            }
         }
-        InputStream fileStream = new FileInputStream(FILE_PATH  + fileName);
-        String mimeType = tika.detect(fileName);
-        return Response.ok(fileStream, mimeType)
-                .header("Content-Disposition", "attachment; filename=" + fileName)
-                .build();
-        // => src/main/resources/files/
+        return response.build();
     }
 
     /**
@@ -129,7 +155,7 @@ public class ExhibitionResource {
                     // exhibitRepo.persist(ex);
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     var fileName2 = FILE_PATH + "upload/" + fileName;
-
+                    log.infof("save uploaded file as %s", fileName2);
                     writeFile(bytes, fileName2);
                     fileCount++;
                 } catch (IOException e) {

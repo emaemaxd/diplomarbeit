@@ -1,0 +1,29 @@
+@QUARKUS=http://localhost:8080
+@www=http://localhost:4200
+
+####
+# @name login
+POST {{QUARKUS}}/api/users/login
+Content-Type: application/json
+
+{
+    "emailOrUsername": "john.doe@example.com",
+    "password": "yourpasswordhere..."
+}
+
+
+###
+# @name GET_ALL_EX_QUARKUS
+GET {{QUARKUS}}/api/exhibitions/all
+Accept: application/json
+
+###
+GET http://localhost:4200/api/exhibitions/all
+Accept: application/json
+###
+
+# Download an image
+GET {{QUARKUS}}/api/exhibitions/download/example-exhibits%2Fabstract1.jpg
+###
+# Download an image
+GET {{www}}/api/exhibitions/download/example-exhibits%2Fabstract1.jpg

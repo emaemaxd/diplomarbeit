@@ -84,10 +84,10 @@ public class UserResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/login")
     public Response login(UserLoginDTO loginDTO){
-        String token;
         User user = null;
+        var password = this.hashPassword(loginDTO.getPassword());
         // first hash password
-        loginDTO.setPassword(this.hashPassword(loginDTO.getPassword()));
+        loginDTO.setPassword(password);
 
         // then find user
         // return ((this.userRepo.isUser(loginDTO))? Response.ok("{'token':'Test'}") : Response.status(401)).build();

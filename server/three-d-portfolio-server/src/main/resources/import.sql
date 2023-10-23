@@ -1,6 +1,7 @@
 insert into users (id, user_name, email, password) values (-1, 'user', 'email@gmx.com', 'cGFzc21leW95b3lv');
 insert into users (id, user_name, email, password) values (-2, 'lorenz', 'ema_il@gmx.com', 'cGFzc21leW95b3lv');
 insert into users (id, user_name, email, password) values (-3, 'FAnDave', 'ichliebejuicewrld@gmx.com', 'cGFzc21leW95b3lv');
+insert into users (id, user_name, email, password) values (-4, 'John', 'john.doe@example.com', 'ZG9lMjdQd2R5b3lveW8=');
 
 insert into theme(id, name, thumbnail_url, container_url, container_mat_url, light_intensity)
     values (1, 'Edgy Teen', 'thumbnails/themeEdgy.jpg', '~/test.c4d', '~/test.c4d', 0.0 );
@@ -11,7 +12,6 @@ insert into room(id, name, thumbnail_url, room_floor_url, room_wall_url, wall_ma
     values (1, 'Cross', 'thumbnails/crossRoomThumbnail.png', 'rooms/floor2.gltf', 'rooms/wall2.gltf', 'src/nopath', 'src/nopath', 1),
             (2, 'Cube', 'thumbnails/cubeThumbnail.png', 'rooms/floor1.gltf', 'rooms/wall1.gltf', 'src/nopath', 'src/nopath', 1),
             (3, 'Triangle', 'thumbnails/triangleThumbnail.png', 'rooms/floor3.gltf', 'rooms/wall3.gltf', '', '', 1);  /* src/main/resources/files/rooms/ */
-
 
 /*
 insert into position(id, rotation, x, y, is_wall, room_id) values (3, 40, 200, 350, false, 1);
