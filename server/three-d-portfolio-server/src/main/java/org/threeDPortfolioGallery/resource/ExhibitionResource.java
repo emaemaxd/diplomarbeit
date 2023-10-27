@@ -93,10 +93,10 @@ public class ExhibitionResource {
      * @return Response code 200 mit dem FileStream <i>oder</i> HTTP-Statuscode No Content
      */
     @GET
-    @Path("/download/{fileName}")
-    public Response downloadFile(@PathParam("fileName") String fileName)
+    @Path("/download/{exhibition}/{fileName}")
+    public Response downloadFile(@PathParam("exhibition") String exhibition, @PathParam("fileName") String fileName)
     throws IOException {
-        var file = java.nio.file.Path.of(FILE_PATH, fileName);
+        var file = java.nio.file.Path.of(FILE_PATH, exhibition, fileName);
         log.infof("try to download %s (FILE_PATH=%s)", file.toFile().getAbsolutePath(), FILE_PATH);
         var response = Response.noContent().entity(String.format("file '%s' not found", file.toAbsolutePath().getFileName()));
         if (Files.exists(file)) {
