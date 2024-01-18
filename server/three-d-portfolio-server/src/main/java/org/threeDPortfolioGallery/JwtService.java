@@ -12,7 +12,7 @@ public class JwtService {
         return Jwt.issuer("user-jwt")
                 .claim("userid", id)
                 .subject("user-jwt")
-                .groups(Set.of("user", "admin"))
+                .groups(Set.of("user"))
                 .expiresAt(
                         System.currentTimeMillis() + 3600000
                 ).sign();

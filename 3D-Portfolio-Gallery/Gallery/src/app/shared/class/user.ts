@@ -1,9 +1,9 @@
 export class User{
   id: number;
-  email: string;
   user_name: string;
-  password: string;
+  email: string;
   icon_url: string;
+  password: string;
 
   constructor(id: number, email: string, user_name: string, password: string, icon_url: string) {
     this.id = id;

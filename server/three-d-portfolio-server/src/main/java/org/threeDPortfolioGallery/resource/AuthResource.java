@@ -1,6 +1,7 @@
 package org.threeDPortfolioGallery.resource;
 
 import io.quarkus.security.credential.Credential;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.threeDPortfolioGallery.JwtService;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,7 +13,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/jwt")
+@Path("/api/jwt")
 @ApplicationScoped
 public class AuthResource {
 

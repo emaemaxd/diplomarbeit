@@ -3,6 +3,7 @@ package org.threeDPortfolioGallery.resource;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
+import org.jboss.logging.Logger;
 import org.threeDPortfolioGallery.JwtService;
 import org.threeDPortfolioGallery.repos.UserRepo;
 import org.threeDPortfolioGallery.workloads.User;
@@ -16,12 +17,17 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.net.URI;
 import java.util.Base64;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Controller Klasse, um User zu verwalten mittels REST-Endpoints. Diese Endpoints ermöglichen CRUD der Tabelle User.
  */
 @Path("/api/users")
 public class UserResource {
+
+    @Inject
+    Logger log;
 
     @Inject
     UserRepo userRepo;
@@ -45,6 +51,18 @@ public class UserResource {
                 return Response.ok().entity(user).build();
             }
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllUsers(){
+        List<User> users = userRepo.listAll();
+        if(users == null){
+            return Response.noContent().build();
+        }else {
+            return Response.ok().entity(users).build();
+        }
+    }
+
 
     /**
      *
@@ -77,13 +95,13 @@ public class UserResource {
         // return password.concat("hi");
     }
 
-    @PermitAll
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/login")
     public Response login(UserLoginDTO loginDTO){
+        log.infof("user login %s aufgerufen", loginDTO.getEmailOrUsername());
         User user = null;
         var password = this.hashPassword(loginDTO.getPassword());
         // first hash password

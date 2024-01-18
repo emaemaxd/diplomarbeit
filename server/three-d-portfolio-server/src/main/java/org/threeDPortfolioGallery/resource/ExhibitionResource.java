@@ -118,11 +118,11 @@ public class ExhibitionResource {
      * @return Bild
      */
     @GET
-    @Path("/downloadImageFile/{fileName}")
+    @Path("/downloadImageFile/{exhibition}/{fileName}")
     @Produces({"image/png"})
-    public Response downloadImageFile(@PathParam("fileName") String fileName) {
-        File file = new File(FILE_PATH + fileName);
-        System.out.println(FILE_PATH + fileName);
+    public Response downloadImageFile(@PathParam("exhibition") String exhibition, @PathParam("fileName") String fileName) {
+        File file = new File(FILE_PATH + exhibition + "/" + fileName);
+        System.out.println(FILE_PATH + exhibition + "/" + fileName);
         if (!file.exists()) {
             return Response.noContent().entity("file not found").build();
         }
@@ -214,7 +214,7 @@ public class ExhibitionResource {
      * @return alle gefundenen Exhibitions für
      */
     @GET
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     @Path("/getByUserId/{userId}")
     public Response getExhibitionsByUser(@PathParam("userId") long id){
         List<Exhibition> exhibitions = exhibitionRepo.getAllExhibitionsForUser(id);
