@@ -6,6 +6,8 @@ public class UserLoginDTO implements Serializable {
     String emailOrUsername;
     String password;
 
+    public UserLoginDTO(){}
+
     public UserLoginDTO(String emailOrUsername, String password) {
         this.emailOrUsername = emailOrUsername;
         this.password = password;
