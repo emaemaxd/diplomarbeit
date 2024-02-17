@@ -389,7 +389,11 @@ public class ExhibitionResource {
             return Response.status(406).entity("no exhibition with this id").build();
         } else {
             for (Exhibit exhibit : exhibition.exhibits) {
+                boolean tmp = exhibitRepo.deleteExhibitsWithFile(exhibit);
                 exhibitRepo.delete(exhibit);
+                //if (!tmp) {
+                  //  exhibitRepo.delete(exhibit);
+                //}
             }
             exhibitionRepo.delete(exhibition);
             return Response.noContent().build();

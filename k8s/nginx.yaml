@@ -58,6 +58,8 @@ metadata:
 data:
   default.conf: |
     server {
+        client_max_body_size 20M;
+
         listen 80;
         rewrite_log on;
         error_log /dev/stdout debug;

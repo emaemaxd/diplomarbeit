@@ -121,7 +121,7 @@ export class GalleryService {
   }
 
   getValidImageString(url: String){
-    url = url.replace('/', '%2F');
+    //url = url.replace('/', '%2F');
     return `${this.URL}exhibitions/downloadImageFile/${url}`
   }
 }
